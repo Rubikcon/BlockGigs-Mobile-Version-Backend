@@ -7,7 +7,7 @@ Server for Block Gigs Application
 ## Prerequisites
 
 1. Node.js - Make sure you have Node.js installed (v14 or higher recommended).
-2. MySQL - Install and run MySQL locally or use a remote MySQL server.
+2. PostgreSQL - Install and run PostgreSQL locally or use a remote PostgreSQL server.
 3. Nest CLI - Install the NestJS CLI globally if you haven’t already:
 
 ```
@@ -30,7 +30,7 @@ In the project root, create a .env file with the following variables. Replace <y
 
 ```
 DB_HOST=localhost
-DB_PORT=3306
+DB_PORT=5432
 DB_USER=root
 DB_PASSWORD=<your-password>
 DB_NAME=<your-database-name>
@@ -40,7 +40,7 @@ DB_NAME=<your-database-name>
 
 Create the database
 
-Ensure that the database specified in DB_NAME exists in your MySQL server. Start mysql server locally, and login with credentials. You can then create the database manually:
+Ensure that the database specified in DB_NAME exists in your PostgreSQL server. Start postgresql server locally, and login with credentials. You can then create the database manually:
 
 ```
 CREATE DATABASE <your-database-name>;
@@ -48,9 +48,9 @@ CREATE DATABASE <your-database-name>;
 
 ## Compile and run the project
 
-1. Start MySQL Server:
+1. Start PostgreSQL Server:
 
-Make sure your MySQL server is running locally or remotely and accessible via the credentials in your .env file.
+Make sure your PostgreSQL server is running locally or remotely and accessible via the credentials in your .env file.
 
 2. Start the NestJS Server
 
@@ -85,7 +85,7 @@ When you're ready to deploy your NestJS application to production, there are som
 If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
 
 ```bash
-$ pnpm install -g mau
+$ npm install -g mau
 $ mau deploy
 ```
 
