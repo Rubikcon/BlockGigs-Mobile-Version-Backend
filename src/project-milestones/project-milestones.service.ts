@@ -63,4 +63,10 @@ export class ProjectMilestonesService {
 
     this.projectMilestonesRepository.save(projectMilestone);
   }
+
+  async deleteMilestones(projectId: number) {
+    return await this.projectMilestonesRepository.delete({
+      project: { id: projectId },
+    });
+  }
 }

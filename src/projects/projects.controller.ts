@@ -3,6 +3,7 @@ import { ProjectsService } from "./projects.service";
 import { CreateProjectDTO } from "./project.dto";
 import { Param } from "@nestjs/common";
 import { Project } from "./project.entity";
+import { DeleteResult } from "typeorm";
 
 @Controller("projects")
 export class ProjectsController {
@@ -36,5 +37,10 @@ export class ProjectsController {
     @Param("userId") userId: number
   ): Promise<Project[]> {
     return this.projectsService.fetchProjectsByUser(userId);
+  }
+
+  @Delete("/:projectId")
+  async deleteProject(@Param("projectId") projectId: number) {
+    await this.projectsService.deleteProject(projectId);
   }
 }

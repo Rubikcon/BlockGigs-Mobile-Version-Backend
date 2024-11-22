@@ -73,4 +73,9 @@ export class ProjectsService {
 
     return projects;
   }
+
+  async deleteProject(projectId: number) {
+    await this.projectMilestoneService.deleteMilestones(projectId);
+    return await this.projectsRepository.delete({ id: projectId });
+  }
 }
