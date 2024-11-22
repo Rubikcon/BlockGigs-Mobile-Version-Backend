@@ -1,3 +1,5 @@
+import { ProjectMilestoneCreateDTO } from "src/project-milestones/project-milestone-create.dto";
+
 export class CreateProjectDTO {
   id?: number;
   title: string;
@@ -6,4 +8,5 @@ export class CreateProjectDTO {
   budget: number;
   deadline: number;
   clientId: number;
+  projectMilestones: ProjectMilestoneCreateDTO[];
 }

@@ -4,12 +4,14 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Project } from "./project.entity";
 import { UserService } from "src/users/users.service";
+import { ProjectMilestonesService } from "src/project-milestones/project-milestones.service";
 
 @Injectable()
 export class ProjectsService {
   constructor(
     @InjectRepository(Project)
     private projectsRepository: Repository<Project>,
+    private projectMilestoneService: ProjectMilestonesService,
     private userService: UserService
   ) {}
 
@@ -20,11 +22,23 @@ export class ProjectsService {
   }
 
   async createProject(project: CreateProjectDTO): Promise<Project> {
-    return this.projectsRepository.save({ ...project, assignedUserId: null });
+    const projectSaved = await this.projectsRepository.save({
+      ...project,
+      assignedUserId: null,
+    });
+    await this.projectMilestoneService.createMilestonesForProject(
+      projectSaved,
+      project.projectMilestones
+    );
+
+    return await this.getProject(projectSaved.id);
   }
 
-  async getProject(projectId: number) {
-    const project = await this.projectsRepository.findOneBy({ id: projectId });
+  async getProject(projectId: number): Promise<Project> {
+    const project = await this.projectsRepository.findOne({
+      where: { id: projectId },
+      relations: ["projectMilestones"],
+    });
 
     if (project === null) {
       throw new NotFoundException("Invalid projectId");

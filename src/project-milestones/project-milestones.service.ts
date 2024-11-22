@@ -1,20 +1,16 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
-import {
-  ProjectMilestoneDTO,
-  ProjectMilestoneStatus,
-} from "./project-milestone.dto";
+import { ProjectMilestoneStatus } from "./project-milestone.dto";
 import { ProjectMilestoneCreateDTO } from "./project-milestone-create.dto";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { ProjectMilestone } from "./project-milestone.entity";
-import { ProjectsService } from "src/projects/projects.service";
+import { Project } from "src/projects/project.entity";
 
 @Injectable()
 export class ProjectMilestonesService {
   constructor(
     @InjectRepository(ProjectMilestone)
-    private projectMilestonesRepository: Repository<ProjectMilestone>,
-    private projectService: ProjectsService
+    private projectMilestonesRepository: Repository<ProjectMilestone>
   ) {}
 
   // async getProjectMilestones(
@@ -26,14 +22,21 @@ export class ProjectMilestonesService {
   // }
 
   async createMilestoneForProject(
-    projectId: number,
+    project: Project,
     milestone: ProjectMilestoneCreateDTO
   ): Promise<ProjectMilestone> {
-    const project = await this.projectService.getProject(projectId);
     return await this.projectMilestonesRepository.save({
       ...milestone,
-      project: project,
+      project,
     });
+  }
+
+  async createMilestonesForProject(
+    project: Project,
+    milestones: ProjectMilestoneCreateDTO[]
+  ): Promise<ProjectMilestone[]> {
+    milestones = milestones.map((milestone) => ({ ...milestone, project }));
+    return await this.projectMilestonesRepository.save(milestones);
   }
 
   async getMilestoneById(

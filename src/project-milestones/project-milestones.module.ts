@@ -10,7 +10,7 @@ import { User } from "src/users/user.entity";
 
 @Module({
   controllers: [ProjectMilestonesController],
-  providers: [ProjectMilestonesService, ProjectsService, UserService],
+  providers: [ProjectMilestonesService, UserService],
   imports: [
     TypeOrmModule.forFeature([ProjectMilestone]),
     TypeOrmModule.forFeature([Project]),

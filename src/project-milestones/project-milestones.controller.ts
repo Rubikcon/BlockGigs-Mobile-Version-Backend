@@ -19,16 +19,17 @@ export class ProjectMilestonesController {
   //   );
   // }
 
-  @Post(":projectId")
-  async createMilestone(
-    @Param("projectId") projectId: number,
-    @Body() projectMilestoneCreateDTO: ProjectMilestoneCreateDTO
-  ): Promise<ProjectMilestone> {
-    return await this.projectMilestonesService.createMilestoneForProject(
-      projectId as number,
-      projectMilestoneCreateDTO
-    );
-  }
+  // @Post(":projectId")
+  // async createMilestone(
+  //   @Param("projectId") projectId: number,
+  //   @Body() projectMilestoneCreateDTO: ProjectMilestoneCreateDTO
+  // ): Promise<ProjectMilestone> {
+
+  //   return await this.projectMilestonesService.createMilestoneForProject(
+  //     project,
+  //     projectMilestoneCreateDTO
+  //   );
+  // }
 
   @Post(":projectMilestoneId/status/:status")
   async updateMilestoneStatus(
