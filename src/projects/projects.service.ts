@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from "@nestjs/common";
 import { CreateProjectDTO } from "./project.dto";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
@@ -22,6 +26,9 @@ export class ProjectsService {
   }
 
   async createProject(project: CreateProjectDTO): Promise<Project> {
+    if (project.projectMilestones.length === 0) {
+      throw new BadRequestException("Must have at least one milestone");
+    }
     const projectSaved = await this.projectsRepository.save({
       ...project,
       assignedUserId: null,
