@@ -7,15 +7,17 @@ import { ProjectMilestonesService } from "src/project-milestones/project-milesto
 import { ProjectMilestone } from "src/project-milestones/project-milestone.entity";
 import { UserService } from "src/users/users.service";
 import { User } from "src/users/user.entity";
-
+import { UsersModule } from "src/users/users.module";
+import { ProjectMilestonesModule } from "src/project-milestones/project-milestones.module";
+import { forwardRef } from "@nestjs/common";
 @Module({
   controllers: [ProjectsController],
-  providers: [ProjectsService, ProjectMilestonesService, UserService],
+  providers: [ProjectsService, ProjectMilestonesService],
   imports: [
     TypeOrmModule.forFeature([Project]),
-    TypeOrmModule.forFeature([ProjectMilestone]),
-    TypeOrmModule.forFeature([User]),
+    forwardRef(() => ProjectMilestonesModule),
+    UsersModule,
   ],
-  exports: [TypeOrmModule],
+  exports: [TypeOrmModule, ProjectsService],
 })
 export class ProjectsModule {}

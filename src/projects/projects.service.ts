@@ -13,9 +13,9 @@ import { ProjectMilestonesService } from "src/project-milestones/project-milesto
 @Injectable()
 export class ProjectsService {
   constructor(
+    private projectMilestoneService: ProjectMilestonesService,
     @InjectRepository(Project)
     private projectsRepository: Repository<Project>,
-    private projectMilestoneService: ProjectMilestonesService,
     private userService: UserService
   ) {}
 

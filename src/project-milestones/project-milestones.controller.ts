@@ -10,27 +10,6 @@ export class ProjectMilestonesController {
     private readonly projectMilestonesService: ProjectMilestonesService
   ) {}
 
-  // @Get(":projectId")
-  // async getMilestonesForProject(
-  //   @Param() { projectId }: { projectId: number }
-  // ): Promise<ProjectMilestoneDTO[]> {
-  //   return this.projectMilestonesService.getProjectMilestones(
-  //     projectId as number
-  //   );
-  // }
-
-  // @Post(":projectId")
-  // async createMilestone(
-  //   @Param("projectId") projectId: number,
-  //   @Body() projectMilestoneCreateDTO: ProjectMilestoneCreateDTO
-  // ): Promise<ProjectMilestone> {
-
-  //   return await this.projectMilestonesService.createMilestoneForProject(
-  //     project,
-  //     projectMilestoneCreateDTO
-  //   );
-  // }
-
   @Post(":projectMilestoneId/status/:status")
   async updateMilestoneStatus(
     @Param("projectMilestoneId") projectMilestoneId: number,
