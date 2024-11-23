@@ -12,8 +12,16 @@ export class Project {
   @Column({ nullable: false })
   description: string;
 
-  @Column({ nullable: false })
-  requiredSkills: string;
+  @Column({
+    nullable: true,
+    type: "text",
+    transformer: {
+      to: (value: string[]): string => value.join(","),
+      from: (value: string): string[] =>
+        value === null ? [] : value.split(","),
+    },
+  })
+  requiredSkills: string[];
 
   @Column({ nullable: false })
   budget: number;

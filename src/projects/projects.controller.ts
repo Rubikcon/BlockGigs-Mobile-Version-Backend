@@ -1,9 +1,8 @@
-import { Controller, Get, Body, Post, Delete } from "@nestjs/common";
+import { Controller, Get, Body, Post, Delete, Query } from "@nestjs/common";
 import { ProjectsService } from "./projects.service";
 import { CreateProjectDTO } from "./project.dto";
 import { Param } from "@nestjs/common";
 import { Project } from "./project.entity";
-import { DeleteResult } from "typeorm";
 
 @Controller("projects")
 export class ProjectsController {

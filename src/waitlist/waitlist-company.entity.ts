@@ -12,7 +12,7 @@ export class WaitlistCompany {
   email: String;
 
   @Column({
-    nullable: true,
+    nullable: false,
     type: "text",
     transformer: {
       to: (value: string[]): string => value.join(","),
