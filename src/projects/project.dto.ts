@@ -8,5 +8,6 @@ export class CreateProjectDTO {
   budget: number;
   deadline: number;
   clientId: number;
+  postedBy: string;
   projectMilestones: ProjectMilestoneCreateDTO[];
 }

@@ -1,10 +1,20 @@
 import { ProjectMilestone } from "src/project-milestones/project-milestone.entity";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  Timestamp,
+} from "typeorm";
 
 @Entity()
 export class Project {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @CreateDateColumn()
+  createdAt: Date;
 
   @Column({ nullable: false })
   title: string;
@@ -31,6 +41,9 @@ export class Project {
 
   @Column({ nullable: false })
   clientId: number;
+
+  @Column({ nullable: true })
+  postedBy: string;
 
   @Column({ nullable: true })
   assignedUserId: number | null;
