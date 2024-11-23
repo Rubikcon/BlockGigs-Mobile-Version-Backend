@@ -15,6 +15,9 @@ import { Project } from "./projects/project.entity";
 import { ProjectMilestone } from "./project-milestones/project-milestone.entity";
 import { OffersModule } from "./offers/offers.module";
 import { Offer } from "./offers/offer.entity";
+import { WaitlistModule } from "./waitlist/waitlist.module";
+import { WaitlistTalent } from "./waitlist/waitlist-talent.entity";
+import { WaitlistCompany } from "./waitlist/waitlist-company.entity";
 
 @Module({
   imports: [
@@ -24,18 +27,6 @@ import { Offer } from "./offers/offer.entity";
     ProjectMilestonesModule,
     OffersModule,
     ConfigModule.forRoot(),
-    // TypeOrmModule.forRoot({
-    //   type: "postgres",
-    //   host: process.env.DATABASE_HOSTNAME,
-    //   port: process.env.DATABASE_PORT as unknown as number,
-    //   username: process.env.DATABASE_USER,
-    //   password: process.env.DATABASE_PASSWORD,
-    //   database: process.env.DATABASE_NAME,
-    //   entities: [User, Client, Project, ProjectMilestone, Offer],
-    //   url: process.env.DATABASE_URL,
-    //   autoLoadEntities: true,
-    //   synchronize: true,
-    // }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
@@ -50,10 +41,19 @@ import { Offer } from "./offers/offer.entity";
         username: process.env.DATABASE_USER,
         password: process.env.DATABASE_PASSWORD,
         database: process.env.DATABASE_NAME,
-        entities: [User, Client, Project, ProjectMilestone, Offer],
+        entities: [
+          User,
+          Client,
+          Project,
+          ProjectMilestone,
+          Offer,
+          WaitlistTalent,
+          WaitlistCompany,
+        ],
       }),
       inject: [ConfigService],
     }),
+    WaitlistModule,
   ],
   controllers: [AppController, UserController],
   providers: [AppService, UserService],
